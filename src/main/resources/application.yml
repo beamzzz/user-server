@@ -1,8 +1,12 @@
 server:
   port: 8002
   context-path: /user
-#Êý¾Ý¿âÅäÖÃ
+
+#ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½
 spring:
+  jackson:
+    serialization:
+      indent_output: true
   datasource:
     url: jdbc:mysql://218.245.66.238:3306/mx?useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root

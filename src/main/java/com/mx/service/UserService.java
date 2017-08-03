@@ -1,6 +1,6 @@
 package com.mx.service;
 
-import com.mx.dto.User;
+import com.mx.domain.User;
 
 import java.util.List;
 

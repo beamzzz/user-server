@@ -1,4 +1,4 @@
-package com.mx.dto;
+package com.mx.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

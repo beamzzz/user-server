@@ -1,6 +1,7 @@
 package com.mx.web;
 
-import com.mx.dto.User;
+import com.mx.domain.ReturnMessage;
+import com.mx.domain.User;
 import com.mx.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/findAll")
-    public List<User> findAll(){
-        return userService.findAll();
+    public ReturnMessage findAll(){
+
+        return new ReturnMessage("0000",userService.findAll());
     }
 }

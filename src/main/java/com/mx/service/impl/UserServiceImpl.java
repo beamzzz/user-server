@@ -1,6 +1,6 @@
 package com.mx.service.impl;
 
-import com.mx.dto.User;
+import com.mx.domain.User;
 import com.mx.repository.UserRepository;
 import com.mx.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
