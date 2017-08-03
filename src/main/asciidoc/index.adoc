@@ -1,0 +1,17 @@
+= RESTFull API接口文档
+:toc: left
+:toclevels: 2
+:toc-title: 目  录
+:doctype: book
+:icons: font
+
+[[overview]]
+== 1.测试接口
+Get测试。
+
+=== 1.1:URL
+include::{snippets}/home/curl-request.adoc[]
+=== 1.2:request
+include::{snippets}/home/http-request.adoc[]
+include::{snippets}/home/http-response.adoc[]
+include::{snippets}/home/httpie-request.adoc[]
