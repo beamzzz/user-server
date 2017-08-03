@@ -1,4 +1,4 @@
-package com.mx.userserver;
+package com.mx;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
