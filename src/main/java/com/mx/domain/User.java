@@ -1,9 +1,6 @@
 package com.mx.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
@@ -12,10 +9,9 @@ import java.sql.Timestamp;
 @Entity(name = "mx_user")
 public class User {
 
-
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
+    private Long userId;
 
     private String userCode;
 
@@ -29,13 +25,18 @@ public class User {
     
     private String openId;
 
+    /**
+     * 手机验证码（用于注册）
+     */
+    @Transient
+    private String verifyCode;
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(Long userId) {
+        this.userId = userId;
     }
 
-    public Integer getId() {
-        return id;
+    public Long getId() {
+        return userId;
     }
 
     public void setUserName(String userName) {
@@ -84,5 +85,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getVerifyCode() {
+        return verifyCode;
+    }
+
+    public void setVerifyCode(String verifyCode) {
+        this.verifyCode = verifyCode;
     }
 }

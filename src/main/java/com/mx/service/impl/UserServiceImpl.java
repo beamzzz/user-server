@@ -6,6 +6,8 @@ import com.mx.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,5 +19,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public User save(User user) {
+        user.setCreateDate(new Timestamp(new Date().getTime()));
+       return userRepository.save(user);
     }
 }

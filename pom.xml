@@ -5,7 +5,7 @@
 
 	<groupId>com.mx</groupId>
 	<artifactId>user-server</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>user-server</name>
@@ -58,8 +58,14 @@
 			<artifactId>spring-restdocs-mockmvc</artifactId>
 			<scope>test</scope>
 		</dependency>
-
-	</dependencies>
+		<!-- json 处理 -->
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.4</version>
+			<classifier>jdk15</classifier>
+		</dependency>
+    </dependencies>
 
 	<dependencyManagement>
 		<dependencies>

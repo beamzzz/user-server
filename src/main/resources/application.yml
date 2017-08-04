@@ -2,7 +2,9 @@ server:
   port: 8002
   context-path: /user
 
-#���ݿ�����
+#注册中心地址
+url.eureka: 218.245.66.238:9001
+#数据库相关配置
 spring:
   jackson:
     serialization:
@@ -16,3 +18,13 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+#注册中心配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${url.eureka}/eureka/
+  instance:
+    prefer-ip-address: true
+    preferIpAddress: true
+    instance-id: 127.0.0.1:${server.port}

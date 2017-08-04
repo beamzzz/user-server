@@ -1,6 +1,6 @@
 = RESTFull API接口文档
 :toc: left
-:toclevels: 2
+:toclevels: 3
 :toc-title: 目  录
 :doctype: book
 :icons: font
@@ -12,10 +12,13 @@
 :operation-links-title: 相关链接
 
 [[overview]]
-== 1.用户
-Get测试。
+== 1.用户中心 (/user)
+ 提供用户相关API
 
-=== 1.1:URL
+[[resources-user]]
+=== 1.1:注册相关接口
 
-=== 1.2:request
-operation::user-findall[snippets='http-request,http-response,response-fields']
+==== 1.1.1:用户注册
+
+operation::user-regist[snippets='http-request,http-response,response-fields']
+

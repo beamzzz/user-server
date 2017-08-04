@@ -38,9 +38,7 @@ public class UserControllerTest extends SpringRestDocApplicationTest{
         this.mockMvc.perform(get("/findAll")).andDo(print()).andExpect(status().isOk())
                 .andDo(document("user-findall",
                         relaxedResponseFields(
-                                fieldWithPath("data[0].id").description("用户ID").type("Number").attributes(
-                                        new Attributes.Attribute("id","id"),
-                                        new Attributes.Attribute("userCode","userCode")),
+                                fieldWithPath("data[0].id").description("用户ID").type("Number"),
                                 fieldWithPath("data[0].userCode").description("用户编码").type("String"),
                                 fieldWithPath("data[0].userName").description("用户名").type("String"),
                                 fieldWithPath("data[0].createDate").description("创建时间").type("date"),
