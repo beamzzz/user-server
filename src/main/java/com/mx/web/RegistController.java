@@ -25,13 +25,10 @@ public class RegistController {
     public ReturnMessage regist(@RequestBody User user){
         try{
             if(StringUtils.isBlank(user.getUserCode())){
-                throw new ParameterException("用户编码不能为空");
+                throw new ParameterException("用户名不能为空");
             }
             if(StringUtils.isBlank(user.getPassword())){
                 throw  new ParameterException("用户密码不能为空");
-            }
-            if(StringUtils.isBlank(user.getUserName())){
-                throw new ParameterException("用户昵称不能为空");
             }
             if(StringUtils.isBlank(user.getVerifyCode())){
                 throw new ParameterException("手机验证码不能为空");

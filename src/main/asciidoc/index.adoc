@@ -39,5 +39,5 @@
 
 ==== 1.1.1:用户注册
 
-operation::user-regist[snippets='http-request,http-response,response-fields']
+operation::user-regist[snippets='http-request,request-fields,http-response,response-fields']
 

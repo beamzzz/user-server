@@ -12,6 +12,7 @@ import java.util.Map;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.relaxedResponseFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -34,7 +35,6 @@ public class RegistControllerTest  extends SpringRestDocApplicationTest {
     public void testRegist()throws Exception{
         Map<String, Object> regist = new HashMap<>();
         regist.put("userCode","beam");
-        regist.put("userName","大王");
         regist.put("password","asdkjhlkjioluiojhoiuiolasda");
         regist.put("verifyCode","789654");
         regist.put("telephone","17710026695");
@@ -43,6 +43,11 @@ public class RegistControllerTest  extends SpringRestDocApplicationTest {
                 content(this.objectMapper.writeValueAsString(regist)))
                 .andDo(print()).andExpect(status().isOk())
                 .andDo(document("user-regist",
+                        requestFields(
+                                fieldWithPath("userCode").description("用户名"),
+                                fieldWithPath("password").description("密码"),
+                                fieldWithPath("verifyCode").description("验证码"),
+                                fieldWithPath("telephone").description("手机号") ),
                         relaxedResponseFields(
                                 fieldWithPath("data.id").description("用户ID").type("Number"),
                                 fieldWithPath("data.userCode").description("用户编码").type("String"),
