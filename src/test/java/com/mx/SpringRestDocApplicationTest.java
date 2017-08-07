@@ -59,7 +59,7 @@ public class SpringRestDocApplicationTest {
 						.snippets().withTemplateFormat(TemplateFormats.asciidoctor()).withEncoding("UTF-8")
 						.withDefaults(defaultSnippets)
 						.and()
-						.uris().withScheme("http").withHost("218.245.66.238").withPort(7000)
+						.uris().withScheme("http").withHost("chunlei.laijie.top")
 						.and()
 				)
 				.build();

@@ -1,4 +1,4 @@
-= RESTFull API接口文档
+= 毛线API接口文档
 :toc: left
 :toclevels: 3
 :toc-title: 目  录
@@ -12,6 +12,25 @@
 :operation-links-title: 相关链接
 
 [[overview]]
+== API通用说明
+*毛线 API 通用响应消息说明*
+
+|===
+| 字段 | 类型 | 解释
+
+| code
+| String
+| 0000为成功，其他为失败
+
+| msg
+| String
+| 响应描述信息
+
+| data
+| Object
+| 响应数据
+|===
+
 == 1.用户中心 (/user)
  提供用户相关API
 
