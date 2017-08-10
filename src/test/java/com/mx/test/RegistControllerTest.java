@@ -35,7 +35,7 @@ public class RegistControllerTest  extends SpringRestDocApplicationTest {
     public void testRegist()throws Exception{
         Map<String, Object> regist = new HashMap<>();
         regist.put("userCode","beam");
-        regist.put("password","asdkjhlkjioluiojhoiuiolasda");
+        regist.put("password","123456");
         regist.put("verifyCode","789654");
         regist.put("telephone","17710026695");
 
@@ -50,8 +50,8 @@ public class RegistControllerTest  extends SpringRestDocApplicationTest {
                                 fieldWithPath("telephone").description("手机号") ),
                         relaxedResponseFields(
                                 fieldWithPath("data.id").description("用户ID").type("Number"),
-                                fieldWithPath("data.userCode").description("用户编码").type("String"),
-                                fieldWithPath("data.userName").description("用户名").type("String"),
+                                fieldWithPath("data.userCode").description("用户名").type("String"),
+                                fieldWithPath("data.userName").description("昵称").type("String"),
                                 fieldWithPath("data.createDate").description("创建时间").type("date"),
                                 fieldWithPath("data.telephone").description("电话号码").type("String"),
                                 fieldWithPath("data.password").description("密码").type("String"),

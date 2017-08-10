@@ -8,5 +8,7 @@ public interface UserService {
 
     public List<User> findAll();
 
-    public User save(User user);
+    public User regist(User user);
+
+    public User loginCheck(String userCode,String password);
 }

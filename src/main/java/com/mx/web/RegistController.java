@@ -7,6 +7,8 @@ import com.mx.exception.ParameterException;
 import com.mx.service.UserService;
 import com.netflix.discovery.converters.Auto;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +17,9 @@ import org.springframework.web.bind.annotation.*;
  * @date 2017/8/4
  */
 @RestController
-@RequestMapping("")
 public class RegistController {
+
+    private Logger logger = LoggerFactory.getLogger(RegistController.class);
 
     @Autowired
     private UserService userServicel;
@@ -33,17 +36,15 @@ public class RegistController {
             if(StringUtils.isBlank(user.getVerifyCode())){
                 throw new ParameterException("手机验证码不能为空");
             }
-            User resullt = userServicel.save(user);
+            logger.info(user.getUserCode() + "请求注册,手机号码 ：" + user.getTelephone() );
+            User resullt = userServicel.regist(user);
+            logger.info(user.getUserCode() + "注册成功");
             return new ReturnMessage("0000",resullt);
         }catch (MxException e){
+            logger.error(user.getUserCode() + "注册失败" + e.getMessage());
             return new ReturnMessage("9999",e.getMessage());
         }
 
 
-    }
-
-    @GetMapping("getVerifyCode/{telephone}")
-    public ReturnMessage getVerifyCode(@PathVariable("telephone") String telephone){
-        return  null;
     }
 }

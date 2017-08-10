@@ -18,10 +18,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -39,11 +44,31 @@ public class UserControllerTest extends SpringRestDocApplicationTest{
                 .andDo(document("user-findall",
                         relaxedResponseFields(
                                 fieldWithPath("data[0].id").description("用户ID").type("Number"),
-                                fieldWithPath("data[0].userCode").description("用户编码").type("String"),
-                                fieldWithPath("data[0].userName").description("用户名").type("String"),
+                                fieldWithPath("data[0].userCode").description("用户名").type("String"),
+                                fieldWithPath("data[0].userName").description("昵称").type("String"),
                                 fieldWithPath("data[0].createDate").description("创建时间").type("date"),
                                 fieldWithPath("data[0].telephone").description("电话号码").type("String"),
                                 fieldWithPath("data[0].password").description("密码").type("String"),
                                 fieldWithPath("data[0].openId").description("openId").type("String"))));
+    }
+
+
+    @Test
+    public void testLogin()throws Exception{
+
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("userCode", "beam");
+        params.add("password", "123456");
+
+        this.mockMvc.perform(get("/login").params(params)).andDo(print()).andExpect(status().isOk())
+                .andDo(document("user-login",
+                        requestParameters(
+                                parameterWithName("userCode").description("用户名"),
+                                parameterWithName("password").description("密码")
+                        ),
+                        relaxedResponseFields(
+                                fieldWithPath("data").description("用户信息").type("Object")
+                        )
+                ));
     }
 }
