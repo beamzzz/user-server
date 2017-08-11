@@ -60,7 +60,7 @@ public class UserControllerTest extends SpringRestDocApplicationTest{
         params.add("userCode", "beam");
         params.add("password", "123456");
 
-        this.mockMvc.perform(get("/login").params(params)).andDo(print()).andExpect(status().isOk())
+        this.mockMvc.perform(post("/login").params(params)).andDo(print()).andExpect(status().isOk())
                 .andDo(document("user-login",
                         requestParameters(
                                 parameterWithName("userCode").description("用户名"),

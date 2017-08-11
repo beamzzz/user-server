@@ -32,7 +32,7 @@ public class UserController {
 
         return new ReturnMessage("0000",userService.findAll());
     }
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ReturnMessage login(@RequestParam(name = "userCode",required = true)String userCode,
                                @RequestParam(name = "password",required = true) String password ){
         logger.info(userCode + "登录");
