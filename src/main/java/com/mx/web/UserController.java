@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.bouncycastle.cms.RecipientId.password;
+
 /**
  * 用户接口
  * @aother zcl
@@ -44,4 +46,17 @@ public class UserController {
             return new ReturnMessage("9999",e.getMessage());
         }
     }
+
+    @GetMapping("/checkUserCode/{userCode}")
+    public ReturnMessage checkUserCode(@PathVariable(name = "userCode")String userCode){
+        logger.info(userCode + "检查用户名");
+        try {
+            userService.checkUserCode(userCode);
+
+            return  new ReturnMessage("0000","用户名可用");
+        }catch (MxException e){
+            return new ReturnMessage("9999",e.getMessage());
+        }
+    }
+
 }

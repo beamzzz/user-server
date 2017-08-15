@@ -5,6 +5,7 @@ import com.mx.domain.User;
 import com.mx.exception.MxException;
 import com.mx.exception.ParameterException;
 import com.mx.service.UserService;
+import com.mx.util.StringUtil;
 import com.netflix.discovery.converters.Auto;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -27,8 +28,8 @@ public class RegistController {
     @PostMapping("/regist")
     public ReturnMessage regist(@RequestBody User user){
         try{
-            if(StringUtils.isBlank(user.getUserCode())){
-                throw new ParameterException("用户名不能为空");
+            if(StringUtil.checkLength(user.getUserCode(),6,20)){
+                throw new ParameterException("用户名长度为6到20个字符之间");
             }
             if(StringUtils.isBlank(user.getPassword())){
                 throw  new ParameterException("用户密码不能为空");
@@ -36,6 +37,7 @@ public class RegistController {
             if(StringUtils.isBlank(user.getVerifyCode())){
                 throw new ParameterException("手机验证码不能为空");
             }
+
             logger.info(user.getUserCode() + "请求注册,手机号码 ：" + user.getTelephone() );
             User resullt = userServicel.regist(user);
             logger.info(user.getUserCode() + "注册成功");
@@ -44,7 +46,6 @@ public class RegistController {
             logger.error(user.getUserCode() + "注册失败" + e.getMessage());
             return new ReturnMessage("9999",e.getMessage());
         }
-
 
     }
 }

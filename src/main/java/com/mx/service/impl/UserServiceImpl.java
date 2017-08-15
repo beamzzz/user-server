@@ -48,4 +48,14 @@ public class UserServiceImpl implements UserService {
         }
         return user;
     }
+
+    @Override
+    public void checkUserCode(String userCode) {
+
+        User user = userRepository.findByUserCode(userCode);
+
+        if(user != null){
+            throw  new ServiceException("用户名" + userCode + "已被注册");
+        }
+    }
 }

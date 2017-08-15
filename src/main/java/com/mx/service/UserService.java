@@ -11,4 +11,6 @@ public interface UserService {
     public User regist(User user);
 
     public User loginCheck(String userCode,String password);
+
+    public void checkUserCode(String userCode);
 }
