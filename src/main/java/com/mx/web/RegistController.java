@@ -28,7 +28,7 @@ public class RegistController {
     @PostMapping("/regist")
     public ReturnMessage regist(@RequestBody User user){
         try{
-            if(StringUtil.checkLength(user.getUserCode(),6,20)){
+            if(!StringUtil.checkLength(user.getUserCode(),6,20)){
                 throw new ParameterException("用户名长度为6到20个字符之间");
             }
             if(StringUtils.isBlank(user.getPassword())){

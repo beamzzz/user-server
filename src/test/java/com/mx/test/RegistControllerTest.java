@@ -34,7 +34,7 @@ public class RegistControllerTest  extends SpringRestDocApplicationTest {
     @Test
     public void testRegist()throws Exception{
         Map<String, Object> regist = new HashMap<>();
-        regist.put("userCode","beam");
+        regist.put("userCode","zhangchunlei");
         regist.put("password","123456");
         regist.put("verifyCode","789654");
         regist.put("telephone","17710026695");

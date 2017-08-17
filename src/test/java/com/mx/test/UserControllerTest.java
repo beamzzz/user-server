@@ -81,8 +81,8 @@ public class UserControllerTest extends SpringRestDocApplicationTest{
     @Test
     public void testdecrypt() throws Exception{
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("content", "44FAA06A9AC443D8C7B757C0256AB5EC");
-        params.add("key", "123456");
+        params.add("content", "DFag0hto6AUjMY0Sr0JuSw==");
+        params.add("key", "AJSTKSHTYSJKLDAP");
 
         this.mockMvc.perform(post("/decrypt").params(params)).andDo(print()).andExpect(status().isOk())
                 .andDo(document("test-decrypt",
@@ -104,8 +104,8 @@ public class UserControllerTest extends SpringRestDocApplicationTest{
     @Test
     public void testencrypt() throws Exception{
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("content", "beam");
-        params.add("key", "123456");
+        params.add("content", "maoxiansoft");
+        params.add("key", "AJSTKSHTYSJKLDAP");
 
         this.mockMvc.perform(post("/encrypt").params(params)).andDo(print()).andExpect(status().isOk())
                 .andDo(document("test-encrypt",

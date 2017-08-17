@@ -1,23 +1,18 @@
-/*
- * @(#)AesDecryptUtil.java 2017-8-11上午11:25:40
- * decrypt
- * Copyright 2017 Hjsoft, Inc. All rights reserved.
- * HJSOFT PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- */
 package com.mx.util;
 
 import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+
+import org.apache.commons.codec.binary.Base64;
 
 /**
  * AesDecryptUtil
@@ -26,6 +21,8 @@ import javax.crypto.spec.SecretKeySpec;
  *
  */
 public class AesDecryptUtil {
+    /**设置AES的IV,保证与其他系统的通信**/
+    private static final String IV_STRING = "A-16-Byte-String";
 
     /**
      * 加密
@@ -35,14 +32,14 @@ public class AesDecryptUtil {
      */
     private static byte[] encrypt(String content, String password) {
         try {
-            KeyGenerator kgen = KeyGenerator.getInstance("AES");
-            kgen.init(128, new SecureRandom(password.getBytes()));
-            SecretKey secretKey = kgen.generateKey();
-            byte[] enCodeFormat = secretKey.getEncoded();
-            SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
-            Cipher cipher = Cipher.getInstance("AES");// 创建密码器
-            byte[] byteContent = content.getBytes("utf-8");
-            cipher.init(Cipher.ENCRYPT_MODE, key);// 初始化
+
+            byte[] enCodeFormat = password.getBytes();
+            SecretKeySpec secretKeySpec = new SecretKeySpec(enCodeFormat, "AES");
+            byte[] initParam = IV_STRING.getBytes();
+            IvParameterSpec ivParameterSpec = new IvParameterSpec(initParam);
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");// 创建密码器
+            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
+            byte[] byteContent = content.getBytes("UTF-8");
             byte[] result = cipher.doFinal(byteContent);
             return result; // 加密
         } catch (NoSuchAlgorithmException e) {
@@ -57,6 +54,9 @@ public class AesDecryptUtil {
             e.printStackTrace();
         } catch (BadPaddingException e) {
             e.printStackTrace();
+        } catch (InvalidAlgorithmParameterException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
         return null;
     }
@@ -68,13 +68,12 @@ public class AesDecryptUtil {
      */
     private static byte[] decrypt(byte[] content, String password) {
         try {
-            KeyGenerator kgen = KeyGenerator.getInstance("AES");
-            kgen.init(128, new SecureRandom(password.getBytes()));
-            SecretKey secretKey = kgen.generateKey();
-            byte[] enCodeFormat = secretKey.getEncoded();
-            SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
-            Cipher cipher = Cipher.getInstance("AES");// 创建密码器
-            cipher.init(Cipher.DECRYPT_MODE, key);// 初始化
+            byte[] enCodeFormat = password.getBytes();
+            SecretKeySpec secretKeySpec = new SecretKeySpec(enCodeFormat, "AES");
+            byte[] initParam = IV_STRING.getBytes();
+            IvParameterSpec ivParameterSpec = new IvParameterSpec(initParam);
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");// 创建密码器
+            cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
             byte[] result = cipher.doFinal(content);
             return result; // 加密
         } catch (NoSuchAlgorithmException e) {
@@ -86,6 +85,9 @@ public class AesDecryptUtil {
         } catch (IllegalBlockSizeException e) {
             e.printStackTrace();
         } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (InvalidAlgorithmParameterException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return null;
@@ -126,6 +128,17 @@ public class AesDecryptUtil {
         return encodeStr;
     }
     /**
+     * 获得加密后的字符串
+     * @param unEncodeStr 未加密的字符串
+     * @param key 密钥
+     * @return
+     */
+    public static String getEncodeStrBase64(String unEncodeStr,String key){
+        byte [] encodeByte = encrypt(unEncodeStr,key);
+        String encodeStr = Base64.encodeBase64String(encodeByte);
+        return encodeStr;
+    }
+    /**
      * 获得解密字符串
      * @param encodeStr 加密的字符串
      * @param key 密钥
@@ -135,6 +148,20 @@ public class AesDecryptUtil {
         String decodeStr = null;
         try {
             byte [] encodeByte =  hexStr2ByteArr(encodeStr);
+            byte [] decodeByte = decrypt(encodeByte, key);
+            decodeStr = new String(decodeByte);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return decodeStr;
+    }
+
+    public static String getDecodeStrForBase64(String encodeStr,String key){
+        String decodeStr = null;
+        try {
+            boolean ss = Base64.isBase64(encodeStr);
+            System.out.println(ss);
+            byte [] encodeByte = Base64.decodeBase64(encodeStr);
             byte [] decodeByte = decrypt(encodeByte, key);
             decodeStr = new String(decodeByte);
         } catch (Exception e) {

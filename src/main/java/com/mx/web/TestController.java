@@ -29,15 +29,15 @@ public class TestController {
     @PostMapping("/decrypt")
     public ReturnMessage decrypt(@RequestParam("content") String content,@RequestParam("key") String key){
         logger.info("AES解密测试,内容" + content);
-        String result =  AesDecryptUtil.getDecodeStr(content,key);
+        String result =  AesDecryptUtil.getDecodeStrForBase64(content,key);
         logger.info("AES解密后内容,内容" + result);
         return new ReturnMessage("0000","解密成功",result);
     }
 
     @PostMapping("/encrypt")
     public ReturnMessage encrypt(@RequestParam("content") String content,@RequestParam("key") String key){
-        logger.info("AES加密测试,内容" + content);
-        String result =  AesDecryptUtil.getEncodeStr(content,key);
+        logger.info("AES加密测试,内容:" + content + ",key:" + key);
+        String result =  AesDecryptUtil.getEncodeStrBase64(content,key);
         logger.info("AES加密测试,内容" + result);
         return new ReturnMessage("0000","加密成功",result);
     }
