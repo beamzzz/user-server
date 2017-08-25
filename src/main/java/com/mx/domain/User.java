@@ -1,13 +1,14 @@
 package com.mx.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  *
  */
 @Entity(name = "mx_user")
-public class User {
+public class User implements Serializable{
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -30,6 +31,8 @@ public class User {
      */
     @Transient
     private String verifyCode;
+
+    private String headImageUrl;
 
     public void setId(Long userId) {
         this.userId = userId;
@@ -93,5 +96,13 @@ public class User {
 
     public void setVerifyCode(String verifyCode) {
         this.verifyCode = verifyCode;
+    }
+
+    public String getHeadImageUrl() {
+        return headImageUrl;
+    }
+
+    public void setHeadImageUrl(String headImageUrl) {
+        this.headImageUrl = headImageUrl;
     }
 }

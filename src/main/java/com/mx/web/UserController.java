@@ -11,7 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.UUID;
 
 import static org.bouncycastle.cms.RecipientId.password;
 
@@ -36,10 +39,15 @@ public class UserController {
     }
     @PostMapping("/login")
     public ReturnMessage login(@RequestParam(name = "userCode",required = true)String userCode,
-                               @RequestParam(name = "password",required = true) String password ){
+                               @RequestParam(name = "password",required = true) String password ,
+                               HttpServletRequest request){
         logger.info(userCode + "登录");
         try {
             User user = userService.loginCheck(userCode,password);
+            HttpSession session = request.getSession();
+
+            //将用户信息放到session中
+            session.setAttribute("user",user);
 
             return  new ReturnMessage("0000",user);
         }catch (MxException e){
@@ -57,6 +65,18 @@ public class UserController {
         }catch (MxException e){
             return new ReturnMessage("9999",e.getMessage());
         }
+    }
+
+    @GetMapping("/uploadHeadImage")
+    public ReturnMessage uploadHeadImage(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        if(user == null){
+            return new ReturnMessage("9999","用户未登录");
+        }
+
+        //检查用户头像图片是否存在
+        user.setHeadImageUrl("");
+        return new ReturnMessage("0000","上传成功");
     }
 
 }

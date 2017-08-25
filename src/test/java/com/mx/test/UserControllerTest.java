@@ -7,6 +7,8 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
+import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
@@ -44,7 +46,7 @@ public class UserControllerTest extends SpringRestDocApplicationTest{
     public void testLogin()throws Exception{
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("userCode", "beam");
+        params.add("userCode", "zhangchunlei");
         params.add("password", "123456");
 
         this.mockMvc.perform(post("/login").params(params)).andDo(print()).andExpect(status().isOk())

@@ -18,6 +18,9 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  redis:
+    host: 218.245.66.238
+    port: 6379
 
 #注册中心配置
 eureka:
